@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vişne yetiştiriciliği, bahçe takvimi, budama, gübreleme ve hastalıklarla mücadele rehberi.">
+  <meta name="theme-color" content="#6f0d25">
+  <title>Vişne Bahçesi | Bilgiden Bereket Doğar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#anasayfa" aria-label="Vişne Bahçesi ana sayfa">
+      <span class="brand-mark" aria-hidden="true">🍒</span>
+      <span>Vişne Bahçesi</span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span><span class="sr-only">Menüyü aç</span>
+    </button>
+    <nav id="site-nav" aria-label="Ana menü">
+      <a href="#rehberler">Rehberler</a>
+      <a href="#takvim">Bahçe Takvimi</a>
+      <a href="#bahce">Bahçemiz</a>
+      <a class="nav-cta" href="#iletisim">İletişim</a>
+    </nav>
+  </header>
+
+  <main id="anasayfa">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Tefenni · Yeşilköy</p>
+        <h1>Vişne yetiştiriciliğinde <em>bilgiden bereket</em> doğar.</h1>
+        <p class="hero-text">Topraktan hasada; doğru zamanda, doğru uygulamayla daha sağlıklı ağaçlar ve daha nitelikli ürün için sahaya dönük bilgiler.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#rehberler">Rehberleri keşfet <span aria-hidden="true">→</span></a>
+          <a class="button button-ghost" href="#takvim">Bu ay bahçede ne var?</a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>200+</dt><dd>Vişne ağacı</dd></div>
+          <div><dt>4–5</dt><dd>Dekar bahçe</dd></div>
+          <div><dt>12 ay</dt><dd>Uygulama takvimi</dd></div>
+        </dl>
+      </div>
+      <div class="hero-visual" aria-label="Dalları meyve dolu vişne ağacı illüstrasyonu">
+        <div class="sun"></div>
+        <div class="branch branch-one"></div>
+        <div class="branch branch-two"></div>
+        <div class="leaf leaf-1"></div><div class="leaf leaf-2"></div><div class="leaf leaf-3"></div>
+        <div class="leaf leaf-4"></div><div class="leaf leaf-5"></div>
+        <div class="cherry cherry-1"></div><div class="cherry cherry-2"></div>
+        <div class="cherry cherry-3"></div><div class="cherry cherry-4"></div>
+        <div class="visual-note"><span>Rakımın ritmine uygun</span><strong>Yerel yetiştiricilik bilgisi</strong></div>
+      </div>
+    </section>
+
+    <section class="guides section" id="rehberler">
+      <div class="section-heading">
+        <div><p class="eyebrow">Uygulamalı bilgi</p><h2>Bahçenin her dönemi için rehberler</h2></div>
+        <p>Teoriden çok uygulamaya odaklanan, anlaşılır ve düzenli yetiştiricilik notları.</p>
+      </div>
+      <div class="guide-grid">
+        <article class="guide-card featured"><span class="card-icon">✂</span><p>Budama & terbiye</p><h3>Güçlü taç, dengeli ürün</h3><a href="#">Rehberi incele <span>→</span></a></article>
+        <article class="guide-card"><span class="card-icon">◌</span><p>Toprak & besleme</p><h3>Analize dayalı gübreleme</h3><a href="#">Rehberi incele <span>→</span></a></article>
+        <article class="guide-card"><span class="card-icon">⌁</span><p>Bitki sağlığı</p><h3>Hastalık ve zararlılar</h3><a href="#">Rehberi incele <span>→</span></a></article>
+      </div>
+    </section>
+
+    <section class="calendar section" id="takvim">
+      <div><p class="eyebrow light">Mevsimsel takip</p><h2>Bahçede zamanı yakala</h2><p>Vişnede başarı yalnızca ne yaptığınıza değil, ne zaman yaptığınıza da bağlıdır.</p></div>
+      <div class="month-card"><span>Şu dönem</span><strong>Eylül</strong><ul><li>Hasat sonrası ağaç kontrolü</li><li>Toprak ve yaprak analizi planı</li><li>Sonbahar bakım hazırlığı</li></ul></div>
+    </section>
+
+    <section class="about section" id="bahce">
+      <p class="eyebrow">Bahçeden öğreniyoruz</p>
+      <h2>Yerel deneyimi güvenilir bilgiyle buluşturuyoruz.</h2>
+      <p>Burdur Tefenni'nin iklim ve toprak koşullarını merkeze alan bu proje; üreticinin kararını kolaylaştıracak sade, güncel ve uygulanabilir bir kaynak olmayı amaçlıyor.</p>
+    </section>
+  </main>
+
+  <footer id="iletisim"><a class="brand" href="#anasayfa"><span aria-hidden="true">🍒</span> Vişne Bahçesi</a><p>Toprağa saygı, üreticiye fayda.</p><p>© <span id="year"></span> Vişne Bahçesi</p></footer>
+  <script src="script.js"></script>
+</body>
+</html>
