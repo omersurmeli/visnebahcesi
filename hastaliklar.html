@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="content.css">
 <link rel="stylesheet" href="calendar.css">
 <link rel="stylesheet" href="detail.css">
+<link rel="stylesheet" href="health.css">
 </head>
 <body class="article-page">
 <header class="site-header">
@@ -38,6 +39,7 @@
 <div class="article-layout">
 <aside class="article-nav">
 <strong>Bu rehberde</strong>
+<a href="#belirti-bulucu">Belirti bulucu</a>
 <a href="#rota">Gözlem rotası</a>
 <a href="#matris">Belirti matrisi</a>
 <a href="#hastalik">Hastalıklar</a>
@@ -55,6 +57,17 @@
 <li>Ruhsat, etiket dozu ve hasat öncesi süre kontrol edilmeden ürün kullanmayın.</li>
 </ul>
 </div>
+<section class="health-finder" id="belirti-bulucu">
+<div class="finder-heading"><p class="eyebrow">Etkileşimli ön değerlendirme</p><h2>Belirtiyi üç adımda daraltın</h2><p>Bu araç teşhis koymaz; bakmanız gereken ayrıntıları ve uzmana aktaracağınız kanıtları düzenler.</p></div>
+<form id="health-form" class="health-form">
+<label>1 · Belirti hangi organda?<select id="health-organ"><option value="leaf">Yaprak</option><option value="flower">Çiçek / genç sürgün</option><option value="fruit">Meyve</option><option value="branch">Dal / gövde</option><option value="whole">Ağacın tamamı</option></select></label>
+<label>2 · Baskın belirti nedir?<select id="health-symptom"></select></label>
+<label>3 · Bahçede nasıl dağılıyor?<select id="health-spread"><option value="single">Tek veya birkaç ağaçta</option><option value="patch">Bir bölgede / sırada kümeli</option><option value="all">Bahçe genelinde</option></select></label>
+<button type="submit">Ön değerlendirmeyi göster</button>
+</form>
+<output id="health-result" class="health-result" aria-live="polite"><p>Organ ve belirtiyi seçip değerlendirmeyi başlatın.</p></output>
+</section>
+<section class="red-flags" aria-labelledby="red-flags-title"><div><p class="eyebrow">Beklemeyin</p><h2 id="red-flags-title">Aynı gün uzman değerlendirmesi gerektiren işaretler</h2></div><ul><li>Aynı sırada hızla artan ani solma veya dal ölümü</li><li>Gövde çevresini kuşatan yara, kabuk çökmesi veya kötü kokulu kök boğazı</li><li>Bir uygulamadan hemen sonra bahçe genelinde yanıklık</li><li>Hasada yakın dönemde üründe bilinmeyen kalıntı veya yanlış uygulama şüphesi</li></ul></section>
 <h2 id="rota">Her hafta aynı gözlem rotasını yürüyün</h2>
 <ol class="step-list">
 <li>
@@ -236,5 +249,6 @@
 <p>Toprağa saygı, üreticiye fayda.</p>
 </footer>
 <script src="script.js"></script>
+<script src="health.js"></script>
 </body>
 </html>
