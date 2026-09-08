@@ -29,6 +29,12 @@ jobs:
           dig +short visnebahcesi.com A
           echo "www CNAME kaydı"
           dig +short www.visnebahcesi.com CNAME
+          echo "Yetkili ad sunucuları"
+          dig +short visnebahcesi.com NS
+          echo "Hostinger yetkili sunucusundaki A kayıtları"
+          dig +short @aurora.dns-parking.com visnebahcesi.com A
+          echo "Hostinger yetkili sunucusundaki www kaydı"
+          dig +short @aurora.dns-parking.com www.visnebahcesi.com CNAME
       - name: Pages yapılandırması
         uses: actions/configure-pages@v5
         with:
