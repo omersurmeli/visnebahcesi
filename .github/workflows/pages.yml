@@ -23,6 +23,12 @@ jobs:
     steps:
       - name: Kaynak kodunu al
         uses: actions/checkout@v4
+      - name: Alan adı DNS kontrolü
+        run: |
+          echo "Kök alan adı A kayıtları"
+          dig +short visnebahcesi.com A
+          echo "www CNAME kaydı"
+          dig +short www.visnebahcesi.com CNAME
       - name: Pages yapılandırması
         uses: actions/configure-pages@v5
         with:
