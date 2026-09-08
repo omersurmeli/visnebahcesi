@@ -1,96 +1,45 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Vişne yetiştiriciliği, bahçe takvimi, budama, gübreleme ve hastalıklarla mücadele rehberi.">
-  <meta name="theme-color" content="#6f0d25">
-  <title>Vişne Bahçesi | Bilgiden Bereket Doğar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Tefenni Yeşilköy için vişne yetiştiriciliği, aylık takvim, budama, gübreleme, hastalık gözlemi ve pratik üretici araçları.">
+  <meta name="theme-color" content="#6f0d25"><title>Vişne Bahçesi | Uygulamalı Yetiştiricilik Bilgisi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="article.css">
-  <link rel="stylesheet" href="content.css">
+  <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="article.css"><link rel="stylesheet" href="content.css"><link rel="stylesheet" href="home.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#anasayfa" aria-label="Vişne Bahçesi ana sayfa">
-      <span class="brand-mark" aria-hidden="true">🍒</span>
-      <span>Vişne Bahçesi</span>
-    </a>
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span></span><span></span><span></span><span class="sr-only">Menüyü aç</span>
-    </button>
-    <nav id="site-nav" aria-label="Ana menü">
-      <a href="#rehberler">Rehberler</a>
-      <a href="takvim.html">Bahçe Takvimi</a>
-      <a href="#bahce">Bahçemiz</a>
-      <a class="nav-cta" href="#iletisim">İletişim</a>
-    </nav>
-  </header>
+<header class="site-header"><a class="brand" href="#anasayfa"><span class="brand-mark">🍒</span><span>Vişne Bahçesi</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span><span class="sr-only">Menüyü aç</span></button><nav id="site-nav"><a href="#rehberler">Rehberler</a><a href="#donemler">Dönemler</a><a href="takvim.html">Takvim</a><a href="#araclar">Araçlar</a><a class="nav-cta" href="#bahce">Bahçemiz</a></nav></header>
+<main id="anasayfa">
+  <section class="hero"><div class="hero-copy"><p class="eyebrow">Tefenni · Yeşilköy</p><h1>Vişne yetiştiriciliğinde <em>bilgiden bereket</em> doğar.</h1><p class="hero-text">Topraktan hasada; doğru zamanda, doğru uygulamayla daha sağlıklı ağaçlar ve daha nitelikli ürün için sahada kullanılabilecek açık bilgiler.</p><div class="hero-actions"><a class="button button-primary" href="#donemler">Bugün ne yapmalıyım? <span>→</span></a><a class="button button-ghost" href="#araclar">Üretici araçları</a></div><dl class="hero-stats"><div><dt>200+</dt><dd>Vişne ağacı</dd></div><div><dt>4–5</dt><dd>Dekar bahçe</dd></div><div><dt>12 ay</dt><dd>Uygulama takvimi</dd></div></dl></div><div class="hero-visual hero-photo" role="img" aria-label="Olgun meyveleriyle vişne bahçesi"><div class="visual-note"><span>Rakımın ritmine uygun</span><strong>Yerel yetiştiricilik bilgisi</strong></div></div></section>
+  <section class="now-bar" aria-label="Bu ay bahçede"><div><span class="pulse"></span><strong id="current-month-label">Bu ay bahçede</strong><p id="current-month-task">Ağacın dönemini ve hava koşullarını birlikte kontrol edin.</p></div><a href="takvim.html">Aylık kontrol listesini aç →</a></section>
 
-  <main id="anasayfa">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Tefenni · Yeşilköy</p>
-        <h1>Vişne yetiştiriciliğinde <em>bilgiden bereket</em> doğar.</h1>
-        <p class="hero-text">Topraktan hasada; doğru zamanda, doğru uygulamayla daha sağlıklı ağaçlar ve daha nitelikli ürün için sahaya dönük bilgiler.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#rehberler">Rehberleri keşfet <span aria-hidden="true">→</span></a>
-          <a class="button button-ghost" href="takvim.html">Bu ay bahçede ne var?</a>
-        </div>
-        <dl class="hero-stats">
-          <div><dt>200+</dt><dd>Vişne ağacı</dd></div>
-          <div><dt>4–5</dt><dd>Dekar bahçe</dd></div>
-          <div><dt>12 ay</dt><dd>Uygulama takvimi</dd></div>
-        </dl>
-      </div>
-      <div class="hero-visual hero-photo" role="img" aria-label="Olgun meyveleriyle vişne bahçesi">
-        <div class="visual-note"><span>Rakımın ritmine uygun</span><strong>Yerel yetiştiricilik bilgisi</strong></div>
-      </div>
-    </section>
+  <section class="guides section" id="rehberler"><div class="section-heading"><div><p class="eyebrow">Bilgi kütüphanesi</p><h2>İhtiyacınız olan rehbere hızlıca ulaşın</h2></div><p>Bahçe kuruluşundan hasada; karar vermeyi kolaylaştıran, sade ve uygulanabilir içerikler.</p></div><div class="guide-grid guide-grid-four">
+    <article class="guide-card"><span class="card-icon">🌱</span><p>Baştan sona</p><h3>Vişne yetiştiriciliği</h3><span class="card-desc">Yer, çeşit, dikim, sulama ve hasat</span><a href="yetistiricilik.html">Rehberi incele <span>→</span></a></article>
+    <article class="guide-card featured"><span class="card-icon">✂</span><p>Budama & terbiye</p><h3>Güçlü taç, dengeli ürün</h3><span class="card-desc">Kesim sırası, zamanlama ve sık hatalar</span><a href="budama.html">Rehberi incele <span>→</span></a></article>
+    <article class="guide-card"><span class="card-icon">◌</span><p>Toprak & besleme</p><h3>Analize dayalı gübreleme</h3><span class="card-desc">Toprak, yaprak ve gelişim birlikte</span><a href="gubreleme.html">Rehberi incele <span>→</span></a></article>
+    <article class="guide-card"><span class="card-icon">⌁</span><p>Bitki sağlığı</p><h3>Belirtiyi doğru okuyun</h3><span class="card-desc">Gözlem, kayıt ve güvenli müdahale</span><a href="hastaliklar.html">Rehberi incele <span>→</span></a></article>
+  </div></section>
 
-    <section class="guides section" id="rehberler">
-      <div class="section-heading">
-        <div><p class="eyebrow">Uygulamalı bilgi</p><h2>Bahçenin her dönemi için rehberler</h2></div>
-        <p>Teoriden çok uygulamaya odaklanan, anlaşılır ve düzenli yetiştiricilik notları.</p>
-      </div>
-      <div class="guide-grid guide-grid-four">
-        <article class="guide-card"><span class="card-icon">🌱</span><p>Baştan sona</p><h3>Vişne yetiştiriciliği</h3><a href="yetistiricilik.html">Rehberi incele <span>→</span></a></article>
-        <article class="guide-card featured"><span class="card-icon">✂</span><p>Budama & terbiye</p><h3>Güçlü taç, dengeli ürün</h3><a href="budama.html">Rehberi incele <span>→</span></a></article>
-        <article class="guide-card"><span class="card-icon">◌</span><p>Toprak & besleme</p><h3>Analize dayalı gübreleme</h3><a href="gubreleme.html">Rehberi incele <span>→</span></a></article>
-        <article class="guide-card"><span class="card-icon">⌁</span><p>Bitki sağlığı</p><h3>Hastalık ve zararlılar</h3><a href="hastaliklar.html">Rehberi incele <span>→</span></a></article>
-      </div>
-    </section>
+  <section class="stage-section" id="donemler"><div class="section stage-wrap"><div class="section-heading"><div><p class="eyebrow light">Fenoloji rehberi</p><h2>Aya değil, ağacın dönemine bakın</h2></div><p>Bir dönemi seçin; öncelikli gözlemleri ve kaçınılması gereken hatayı görün.</p></div><div class="stage-tabs" role="tablist" aria-label="Vişnenin gelişme dönemleri"><button type="button" class="active" data-stage="dinlenme">Dinlenme</button><button type="button" data-stage="tomurcuk">Tomurcuk</button><button type="button" data-stage="cicek">Çiçeklenme</button><button type="button" data-stage="meyve">Meyve gelişimi</button><button type="button" data-stage="hasat">Hasat sonrası</button></div><div class="stage-panel" id="stage-panel" aria-live="polite"></div></div></section>
 
-    <section class="knowledge-strip" aria-label="Vişne yetiştiriciliğinin temel ilkeleri">
-      <div><strong>01</strong><h3>Önce gözlem</h3><p>Belirtiyi, gelişme dönemini ve hava koşulunu birlikte okuyun.</p></div>
-      <div><strong>02</strong><h3>Önce analiz</h3><p>Gübre kararını toprak ve yaprak analiziyle temellendirin.</p></div>
-      <div><strong>03</strong><h3>Her işi kaydedin</h3><p>Uygulama, verim ve sonuç kaydı bahçenin hafızasıdır.</p></div>
-    </section>
+  <section class="visual-stories section"><div class="section-heading"><div><p class="eyebrow">Bahçeyi okumak</p><h2>Her mevsim başka bir işaret verir</h2></div><p>Tek bir belirtiye değil; hava, gelişim dönemi ve bahçedeki dağılıma birlikte bakın.</p></div><div class="story-grid">
+    <article class="story-card"><img src="assets/ciceklenme.webp" width="1400" height="900" loading="lazy" alt="İlkbaharda çiçek açmış vişne dalları"><div><span>İlkbahar</span><h3>Çiçeklenmede don ve arı hareketi</h3><p>Bahçenin alçak noktalarını ayrıca izleyin; yağışlı ve soğuk saatlerde arı faaliyeti azalabilir.</p></div></article>
+    <article class="story-card"><img src="assets/bahce-hasat.webp" width="1400" height="900" loading="lazy" alt="Dağlık bölgede olgun meyveli vişne bahçesi"><div><span>Yaz</span><h3>Meyve yükü, su ve hasat kalitesi</h3><p>Düzensiz sulama, güneşte bekleyen kasa ve geciken hasat kalite kaybını hızlandırabilir.</p></div></article>
+  </div></section>
 
-    <section class="calendar section" id="takvim">
-      <div><p class="eyebrow light">Mevsimsel takip</p><h2>Bahçede zamanı yakala</h2><p>Vişnede başarı yalnızca ne yaptığınıza değil, ne zaman yaptığınıza da bağlıdır.</p></div>
-      <div class="month-card"><span>Şu dönem</span><strong>Eylül</strong><ul><li>Hasat sonrası ağaç kontrolü</li><li>Toprak ve yaprak analizi planı</li><li>Sonbahar bakım hazırlığı</li></ul></div>
-    </section>
+  <section class="myths section"><p class="eyebrow">Doğru bilinen yanlışlar</p><h2>Küçük görünen, pahalıya mal olan hatalar</h2><div class="myth-grid">
+    <article><b>“Yeşil ağaç iyi beslenmiştir.”</b><p>Aşırı koyu yeşil ve uzun sürgün, fazla azot veya suyun da işareti olabilir.</p></article><article><b>“İlaçlama ayı bellidir.”</b><p>Kararı ay değil; fenoloji, hastalık geçmişi, gerçek gözlem ve hava verir.</p></article><article><b>“Çok budama çok ürün getirir.”</b><p>Sert budama obur sürgünü artırabilir; yaşlı ağaç yenilemesi birkaç yıla yayılır.</p></article><article><b>“Yaprak gübresi her şeyi çözer.”</b><p>Yaprak uygulaması, kök bölgesindeki pH, su veya besin dengesizliğini ortadan kaldırmaz.</p></article><article><b>“Yüzey ıslaksa su yeterlidir.”</b><p>Sulama başarısı kök derinliğindeki nem ve damlatıcıların eşit debisiyle kontrol edilir.</p></article><article><b>“Zamklanma tek başına hastalıktır.”</b><p>Don, yara, budama hasarı ve farklı hastalık olasılıkları birlikte incelenmelidir.</p></article>
+  </div></section>
 
-    <section class="about section" id="bahce">
-      <p class="eyebrow">Bahçeden öğreniyoruz</p>
-      <h2>Yerel deneyimi güvenilir bilgiyle buluşturuyoruz.</h2>
-      <p>Burdur Tefenni'nin iklim ve toprak koşullarını merkeze alan bu proje; üreticinin kararını kolaylaştıracak sade, güncel ve uygulanabilir bir kaynak olmayı amaçlıyor.</p>
-    </section>
+  <section class="tools-section" id="araclar"><div class="section tools-wrap"><div class="section-heading"><div><p class="eyebrow light">Üretici araçları</p><h2>Hesapla, kaydet, unutma</h2></div><p>Telefonda da kolay kullanılan iki küçük yardımcı. Kayıtlar yalnızca bu cihazda saklanır.</p></div><div class="tool-grid">
+    <article class="tool-card"><span class="tool-kicker">Karışım yardımcısı</span><h3>Etiket dozunu toplam suya çevir</h3><p>Etikette yazan “100 litre suya” miktarı, depo hacminize göre hesaplayın.</p><form id="mix-form" class="tool-form"><label>Depo hacmi (litre)<input id="tank-volume" type="number" min="1" step="1" value="400" required></label><label>Etiket miktarı / 100 L<input id="label-dose" type="number" min="0.01" step="0.01" placeholder="Örn. 150" required></label><label>Birim<select id="dose-unit"><option value="ml">ml</option><option value="g">gram</option></select></label><button class="button button-primary" type="submit">Hesapla</button></form><output id="mix-result" class="tool-result">Sonuç burada görünecek.</output><small>Bu araç doz önermez; yalnızca güncel ürün etiketindeki miktarı matematiksel olarak çevirir.</small></article>
+    <article class="tool-card"><span class="tool-kicker">Bahçe defteri</span><h3>Bugünkü uygulamayı kaydet</h3><p>Tarih, yapılan iş ve kısa gözlemi kaydedin; son kayıtlarınız cihazınızda kalsın.</p><form id="record-form" class="tool-form"><label>Tarih<input id="record-date" type="date" required></label><label>İşlem<select id="record-type"><option>Gözlem</option><option>Sulama</option><option>Budama</option><option>Gübreleme</option><option>Bitki koruma</option><option>Hasat</option></select></label><label class="full">Not<input id="record-note" type="text" maxlength="100" placeholder="Örn. kuzey sırada erken yaprak dökümü" required></label><button class="button button-primary" type="submit">Kaydet</button></form><div id="record-list" class="record-list" aria-live="polite"></div></article>
+  </div></div></section>
 
-    <section class="faq section" aria-labelledby="faq-title">
-      <p class="eyebrow">Hızlı cevaplar</p><h2 id="faq-title">Üreticinin sık sorduğu sorular</h2>
-      <details><summary>Vişne ağacı her yıl budanır mı?</summary><p>Her yıl aynı şiddette budanmaz. Kuru ve hastalıklı dallar ile ışık-hava dengesini bozan sürgünler değerlendirilir; yaşlı ağaç yenilemesi birkaç yıla yayılır.</p></details>
-      <details><summary>Gübre miktarını yalnızca ağaç sayısına göre belirleyebilir miyiz?</summary><p>Hayır. Toprak ve yaprak analizi, ağaç yaşı, ürün yükü, sulama biçimi ve gelişme gücü birlikte değerlendirilmelidir.</p></details>
-      <details><summary>İlaçlama için aylık takvim yeterli mi?</summary><p>Hayır. Fenolojik dönem, hava koşulu, bahçenin hastalık geçmişi ve gerçek gözlem esas alınır. Yalnızca ruhsatlı ürün etiketi uygulanır.</p></details>
-      <details><summary>Hasattan sonra bakım biter mi?</summary><p>Bitmez. Sağlıklı yapraklar yeni sezon için depo oluşturmayı sürdürür. Su stresi, erken yaprak dökümü ve hastalıklar izlenmelidir.</p></details>
-    </section>
-  </main>
-
-  <footer id="iletisim"><a class="brand" href="#anasayfa"><span aria-hidden="true">🍒</span> Vişne Bahçesi</a><p>Toprağa saygı, üreticiye fayda.</p><p>© <span id="year"></span> Vişne Bahçesi</p></footer>
-  <script src="script.js"></script>
-</body>
-</html>
+  <section class="knowledge-strip"><div><strong>01</strong><h3>Önce gözlem</h3><p>Belirtiyi, gelişme dönemini ve hava koşulunu birlikte okuyun.</p></div><div><strong>02</strong><h3>Önce analiz</h3><p>Gübre kararını toprak ve yaprak analiziyle temellendirin.</p></div><div><strong>03</strong><h3>Her işi kaydedin</h3><p>Uygulama, verim ve sonuç kaydı bahçenin hafızasıdır.</p></div></section>
+  <section class="about section" id="bahce"><p class="eyebrow">Bahçeden öğreniyoruz</p><h2>Yerel deneyimi güvenilir bilgiyle buluşturuyoruz.</h2><p>Burdur Tefenni’nin iklim ve toprak koşullarını merkeze alan bu proje; üreticinin kararını kolaylaştıracak sade, güncel ve uygulanabilir bir kaynak olmayı amaçlıyor.</p><div class="about-facts"><span><b>Konum</b>Tefenni · Yeşilköy</span><span><b>Ölçek</b>4–5 dekar</span><span><b>Bahçe</b>Yaklaşık 200 ağaç</span></div></section>
+  <section class="faq section"><p class="eyebrow">Hızlı cevaplar</p><h2>Üreticinin sık sorduğu sorular</h2><details><summary>Vişne ağacı her yıl budanır mı?</summary><p>Her yıl aynı şiddette budanmaz. Kuru ve hastalıklı dallar ile ışık-hava dengesini bozan sürgünler değerlendirilir; yaşlı ağaç yenilemesi birkaç yıla yayılır.</p></details><details><summary>Gübre miktarı yalnızca ağaç sayısına göre belirlenebilir mi?</summary><p>Hayır. Toprak ve yaprak analizi, ağaç yaşı, ürün yükü, sulama biçimi ve gelişme gücü birlikte değerlendirilmelidir.</p></details><details><summary>İlaçlama için aylık takvim yeterli mi?</summary><p>Hayır. Fenolojik dönem, hava koşulu, bahçenin hastalık geçmişi ve gerçek gözlem esastır. Yalnızca vişnede ruhsatlı ürün etiketi uygulanır.</p></details><details><summary>Hasattan sonra bakım biter mi?</summary><p>Bitmez. Sağlıklı yapraklar yeni sezon için depo oluşturmayı sürdürür. Su stresi, erken yaprak dökümü ve hastalıklar izlenmelidir.</p></details><details><summary>Sitedeki bilgiler ilaç reçetesi yerine geçer mi?</summary><p>Hayır. Teşhis ve ürün seçimi için yetkili tarım danışmanına veya il/ilçe tarım birimine başvurulmalı; güncel etiket ve ruhsat esas alınmalıdır.</p></details></section>
+</main>
+<footer><a class="brand" href="#anasayfa"><span>🍒</span> Vişne Bahçesi</a><p>Toprağa saygı, üreticiye fayda.</p><p>© <span id="year"></span> Vişne Bahçesi</p></footer><script src="script.js"></script>
+</body></html>
