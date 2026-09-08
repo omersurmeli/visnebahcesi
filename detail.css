@@ -1,6 +1,7 @@
 .summary-box{background:#2e4b38;color:#fff;padding:26px 30px;margin:0 0 44px}
 .summary-box strong{font:700 1.3rem var(--serif)}
 .summary-box ul{margin:12px 0 0;padding-left:20px}
+.article-body .summary-box li{color:#f4f7f4}
 .four-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 48px}
 .four-grid section{border:1px solid var(--line);padding:20px;background:#fff}
 .four-grid span{color:var(--cherry);font-weight:700;font-size:.78rem}
