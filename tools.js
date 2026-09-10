@@ -20,3 +20,62 @@ if(fertilizerForm)fertilizerForm.addEventListener('submit',event=>{event.prevent
 
 const routeForm=document.querySelector('#route-form');
 if(routeForm)routeForm.addEventListener('submit',event=>{event.preventDefault();const rows=Number(document.querySelector('#route-rows').value),trees=Number(document.querySelector('#route-trees').value),requested=Number(document.querySelector('#route-samples').value),count=Math.min(requested,rows*trees),positions=[.18,.52,.82,.34,.68],points=[],seen=new Set();for(let i=0;i<count*5&&points.length<count;i++){const index=points.length,row=Math.max(1,Math.min(rows,Math.round((index+.5)*rows/count))),tree=Math.max(1,Math.min(trees,Math.round(positions[i%positions.length]*trees)));for(let offset=0;offset<trees;offset++){const candidate=((tree-1+offset)%trees)+1,key=`${row}-${candidate}`;if(!seen.has(key)){seen.add(key);points.push([row,candidate]);break}}}document.querySelector('#route-result').innerHTML=`<strong>${points.length} ağaçlık dengeli rota</strong><p>Sıraları aynı uçtan numaralandırın. Ağaç numarası, sıraya girdiğiniz taraftan sayılır.</p><ol>${points.map(([row,tree],index)=>`<li><b>${index+1}.</b> ${row}. sıra · ${tree}. ağaç</li>`).join('')}</ol>`});
+
+
+const irrigationForm=document.querySelector('#smart-irrigation-form');
+const irrigationFields=['irrigation-area','irrigation-trees','irrigation-emitters','irrigation-flow','irrigation-target','irrigation-rain','irrigation-rain-efficiency','irrigation-system-efficiency','irrigation-stage','irrigation-soil'];
+const irrigationStageNotes={
+  cicek:'Çiçeklenmede kök bölgesini havasız bırakacak uzun sulamadan kaçının; don gecesinde sulama kararını bu hesaptan ayrı değerlendirin.',
+  tutum:'Meyve tutumunda ani su stresini önleyin; hesaplanan süreyi bölerek uygulamak ağır bünyede yüzey akışını azaltabilir.',
+  irilesme:'Meyve irileşmesinde ıslak-kuru dalgalanmasını azaltın; aynı kontrol noktalarında nemi tekrar ölçün.',
+  renklenme:'Hasat öncesinde aşırı ve ani sulama yerine dengeli nemi koruyun; meyve ve toprak durumunu birlikte izleyin.',
+  hasat:'Hasat günlerinde kasa, traktör ve işçi trafiğini çamurlu zemine sokmayacak zamanı seçin.',
+  sonrasi:'Hasattan sonra sulamayı birden kesmeyin; sağlıklı yaprakların sezon sonuna kadar işlevini sürdürmesi için nemi izleyin.',
+  dinlenme:'Dinlenmede otomatik programa bağlı kalmayın; yağış, toprak nemi ve su birikmesini esas alın.'
+};
+function restoreIrrigationInputs(){
+  try{
+    const saved=JSON.parse(localStorage.getItem('visne-smart-irrigation')||'{}');
+    irrigationFields.forEach(id=>{if(saved[id]!==undefined&&document.getElementById(id))document.getElementById(id).value=saved[id]});
+  }catch(error){}
+}
+function saveIrrigationInputs(){
+  const values={};
+  irrigationFields.forEach(id=>{const element=document.getElementById(id);if(element)values[id]=element.value});
+  localStorage.setItem('visne-smart-irrigation',JSON.stringify(values));
+}
+if(irrigationForm){
+  restoreIrrigationInputs();
+  irrigationForm.addEventListener('submit',event=>{
+    event.preventDefault();
+    const value=id=>Number(document.getElementById(id).value);
+    const area=value('irrigation-area'),trees=value('irrigation-trees'),emitters=value('irrigation-emitters'),flow=value('irrigation-flow'),target=value('irrigation-target'),rain=value('irrigation-rain'),rainEfficiency=value('irrigation-rain-efficiency')/100,systemEfficiency=value('irrigation-system-efficiency')/100,stage=document.getElementById('irrigation-stage').value,soil=document.getElementById('irrigation-soil').value,result=document.getElementById('smart-irrigation-result');
+    if([area,trees,emitters,flow,systemEfficiency].some(number=>!Number.isFinite(number)||number<=0)){result.className='smart-result risk-high';result.innerHTML='<strong>Girdileri kontrol edin</strong><p>Alan, ağaç sayısı, damlatıcı debisi ve sistem verimi sıfırdan büyük olmalıdır.</p>';return}
+    const usefulRainLitres=rain*1000*area*rainEfficiency;
+    const usefulRainPerTree=usefulRainLitres/trees;
+    const remainingPerTree=Math.max(0,target-usefulRainPerTree);
+    const appliedPerTree=remainingPerTree/systemEfficiency;
+    const treeFlow=emitters*flow;
+    const hours=appliedPerTree/treeFlow;
+    const totalM3=appliedPerTree*trees/1000;
+    let title=remainingPerTree===0?'Girilen yağış varsayımı su hedefini karşılıyor':trNumber(hours,2)+' saat çalışma süresi';
+    let level=remainingPerTree===0?'low':'watch';
+    let fieldNote='Kök bölgesini sulama ortasında ve bittikten sonra yeniden kontrol edin.';
+    if(soil==='islak'){title='Kök bölgesi ıslak: sulamayı erteleyip yeniden ölçün';level='high';fieldNote='Hesap matematiksel süreyi gösterse de ıslak/çamurlu kök bölgesinde uygulamaya başlamayın.'}
+    else if(soil==='kuru'){fieldNote='Kuru gözlem hesabı destekliyor; ilk uygulamada suyun kök derinliğine ulaşıp ulaşmadığını kontrol edin.'}
+    result.className='smart-result risk-'+level;
+    result.innerHTML='<strong>'+title+'</strong><div class="result-grid"><span><b>'+trNumber(remainingPerTree,1)+' L/ağaç</b>yağış sonrası net hedef</span><span><b>'+trNumber(totalM3,2)+' m³</b>hesaplanan toplam uygulama</span><span><b>'+trNumber(usefulRainPerTree,1)+' L/ağaç</b>faydalı sayılan yağış</span></div><p><b>Saha notu:</b> '+fieldNote+'</p><p>'+irrigationStageNotes[stage]+'</p>';
+    saveIrrigationInputs();
+  });
+}
+const irrigationForecast=document.querySelector('#irrigation-forecast');
+if(irrigationForecast){
+  fetch('https://api.open-meteo.com/v1/forecast?latitude=37.18265&longitude=29.812736&daily=precipitation_sum,precipitation_probability_max&forecast_days=3&timezone=Europe%2FIstanbul')
+    .then(response=>{if(!response.ok)throw new Error('forecast');return response.json()})
+    .then(data=>{
+      const total=(data.daily.precipitation_sum||[]).reduce((sum,item)=>sum+(Number(item)||0),0);
+      const probability=Math.max(...(data.daily.precipitation_probability_max||[0]).map(item=>Number(item)||0));
+      irrigationForecast.innerHTML='<span><b>Yeşilköy · önümüzdeki 3 gün</b> Tahmini toplam yağış: <strong>'+trNumber(total,1)+' mm</strong> · en yüksek yağış olasılığı: <strong>%'+trNumber(probability,0)+'</strong></span><small>Tahmini yağışı “ölçülen yağış” alanına yazmayın; gerçekleşen miktarı yağışölçerden girin.</small>';
+    })
+    .catch(()=>{irrigationForecast.innerHTML='<span><b>Canlı yağış tahmini alınamadı.</b> Sulama kararında bahçe ölçümünüzü ve yerel tahmini birlikte kullanın.</span>'});
+}
