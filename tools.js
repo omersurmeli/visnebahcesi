@@ -79,3 +79,44 @@ if(irrigationForecast){
     })
     .catch(()=>{irrigationForecast.innerHTML='<span><b>Canlı yağış tahmini alınamadı.</b> Sulama kararında bahçe ölçümünüzü ve yerel tahmini birlikte kullanın.</span>'});
 }
+
+
+const irrigationLogButton=document.querySelector('#save-irrigation-log');
+const irrigationResultActions=document.querySelector('#irrigation-result-actions');
+let latestIrrigationLog=null;
+if(irrigationForm&&irrigationLogButton&&irrigationResultActions){
+  irrigationForm.addEventListener('submit',()=>{
+    const number=id=>Number(document.getElementById(id).value);
+    const area=number('irrigation-area'),trees=number('irrigation-trees'),emitters=number('irrigation-emitters'),flow=number('irrigation-flow'),target=number('irrigation-target'),rain=number('irrigation-rain'),rainEfficiency=number('irrigation-rain-efficiency')/100,systemEfficiency=number('irrigation-system-efficiency')/100,soil=document.getElementById('irrigation-soil').value,stageSelect=document.getElementById('irrigation-stage');
+    const valid=[area,trees,emitters,flow,systemEfficiency].every(item=>Number.isFinite(item)&&item>0);
+    if(!valid){irrigationResultActions.hidden=true;latestIrrigationLog=null;return}
+    const usefulRainPerTree=rain*1000*area*rainEfficiency/trees;
+    const remainingPerTree=Math.max(0,target-usefulRainPerTree);
+    const appliedPerTree=remainingPerTree/systemEfficiency;
+    const hours=appliedPerTree/(emitters*flow);
+    const totalM3=appliedPerTree*trees/1000;
+    const canSave=soil!=='islak'&&remainingPerTree>0;
+    irrigationResultActions.hidden=!canSave;
+    irrigationLogButton.disabled=false;
+    irrigationLogButton.textContent='Bahçem defterine kaydet';
+    document.getElementById('irrigation-save-status').textContent='';
+    latestIrrigationLog=canSave?{
+      date:new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Istanbul'}),
+      type:'Sulama',
+      quantity:Number(totalM3.toFixed(2)),
+      unitPrice:0,
+      cost:0,
+      note:'Akıllı sulama planı: '+trNumber(hours,2)+' saat · '+trNumber(totalM3,2)+' m³ · '+trNumber(remainingPerTree,1)+' L/ağaç · '+stageSelect.options[stageSelect.selectedIndex].text
+    }:null;
+  });
+  irrigationLogButton.addEventListener('click',()=>{
+    if(!latestIrrigationLog)return;
+    let records=[];
+    try{records=JSON.parse(localStorage.getItem('visne-logs-v1')||'[]');if(!Array.isArray(records))records=[]}catch(error){records=[]}
+    records.unshift({...latestIrrigationLog,id:Date.now()});
+    localStorage.setItem('visne-logs-v1',JSON.stringify(records));
+    irrigationLogButton.disabled=true;
+    irrigationLogButton.textContent='Kaydedildi ✓';
+    document.getElementById('irrigation-save-status').textContent='Sulama planı bu cihazdaki Bahçem defterine eklendi.';
+  });
+}
