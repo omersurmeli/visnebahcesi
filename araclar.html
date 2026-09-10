@@ -42,7 +42,7 @@
           <label>Kök bölgesi gözlemi<select id="irrigation-soil"><option value="kuru">Kuru</option><option value="normal" selected>Orta nemli</option><option value="islak">Islak / çamurlu</option></select></label>
           <button class="button button-primary" type="submit">Sulama planını hesapla</button>
         </form>
-        <output id="smart-irrigation-result" class="smart-result" aria-live="polite"></output>
+        <output id="smart-irrigation-result" class="smart-result" aria-live="polite"></output><div id="irrigation-result-actions" class="irrigation-result-actions" hidden><button id="save-irrigation-log" class="button button-primary" type="button">Bahçem defterine kaydet</button><a href="bahcem.html#kayit">Bahçem kayıtlarını aç →</a><span id="irrigation-save-status" role="status"></span></div>
         <div class="irrigation-checklist"><h3>Hesaptan önce iki saha kontrolü</h3><ul><li>Hattın başı, ortası ve sonundaki damlatıcılardan aynı süre boyunca su toplayıp debiyi karşılaştırın.</li><li>Yüzeye değil, damlatıcının 20–30 cm yanındaki kök derinliğine bakın; ıslak veya çamurluysa takvim uğruna sulamayın.</li></ul></div>
         <div class="method-note warning"><b>Doz önerisi değildir:</b> Araç, sizin girdiğiniz su hedefini süreye çevirir. Toprak bünyesi, kök derinliği, ağaç yaşı, ürün yükü ve gerçek nem ölçümü hedefi değiştirebilir. Gölet suyunda filtreyi ve hat sonlarını düzenli kontrol edin.</div>
       </section>
