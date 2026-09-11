@@ -36,6 +36,12 @@ const irrigationStageNotes={
 function restoreIrrigationInputs(){
   try{
     const saved=JSON.parse(localStorage.getItem('visne-smart-irrigation')||'{}');
+    const profile=JSON.parse(localStorage.getItem('visne-profile-v1')||'{}');
+    const hasSaved=Object.keys(saved).length>0;
+    if(!hasSaved){
+      if(profile['garden-area'])document.getElementById('irrigation-area').value=profile['garden-area'];
+      if(profile['garden-trees'])document.getElementById('irrigation-trees').value=profile['garden-trees'];
+    }
     irrigationFields.forEach(id=>{if(saved[id]!==undefined&&document.getElementById(id))document.getElementById(id).value=saved[id]});
   }catch(error){}
 }
