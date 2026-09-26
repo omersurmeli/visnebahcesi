@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Yeşilköy vişne bahçesi için verim tahmini, don mikroklima karşılaştırması, fenolojik karar desteği ve geliştirilen akıllı üretici araçları.">
+<meta name="theme-color" content="#6f0d25"><title>Akıllı Bahçe Merkezi | Vişne Bahçesi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="smart-garden.css">
+<meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://visnebahcesi.com/akilli-bahce.html">
+<meta property="og:locale" content="tr_TR"><meta property="og:type" content="website"><meta property="og:site_name" content="Vişne Bahçesi"><meta property="og:title" content="Akıllı Bahçe Merkezi | Vişne Bahçesi"><meta property="og:description" content="Hava, fenoloji, saha ölçümü ve bahçe kayıtlarını birlikte kullanan ücretsiz üretici araçları."><meta property="og:url" content="https://visnebahcesi.com/akilli-bahce.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Akıllı Bahçe Merkezi","url":"https://visnebahcesi.com/akilli-bahce.html","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"tr-TR","isAccessibleForFree":true}</script>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">🍒</span><span>Vişne Bahçesi</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span><span class="sr-only">Menüyü aç</span></button><nav id="site-nav"><a href="index.html#rehberler">Rehberler</a><a href="takvim.html">Takvim</a><a href="araclar.html">Araçlar</a><a href="akilli-bahce.html" aria-current="page">Akıllı Bahçe</a><a href="bahcem.html">Bahçem</a><a href="iletisim.html">İletişim</a></nav></header>
+<main>
+<section class="smart-hero"><div><p class="eyebrow">Yeşilköy · Ücretsiz karar araçları</p><h1>Bahçeyi yalnız takvimle değil, <em>veriyle</em> okuyun.</h1><p>Hava, fenolojik dönem, saha ölçümü ve kendi kayıtlarınızı bir araya getiren üretici merkezi. Sonuçlar reçete değil; daha doğru gözlem ve planlama desteğidir.</p><div class="hero-actions"><a class="button button-primary" href="#verim">Verim tahminine başla</a><a class="button button-ghost" href="bahcem.html">Bahçem'i aç</a></div></div><aside><span>Mevcut bahçe profili</span><strong>4–5 dekar</strong><b>Yaklaşık 200 ağaç</b><small>Kütahya vişnesi · damlama sulama</small></aside></section>
+
+<section class="active-tools"><div class="smart-heading"><div><p class="eyebrow">Hemen kullanın</p><h2>Çalışan karar destekleri</h2></div><p>Kayıtlar aynı cihazda tutulur; üyelik ve ücretli abonelik gerekmez.</p></div><div class="active-grid">
+<a href="index.html#bugun-bahcede"><span>01</span><strong>Bugün Yeşilköy Bahçesinde</strong><p>Fenoloji ve canlı havaya göre günlük öncelikler.</p><b>Aç →</b></a>
+<a href="araclar.html#sulama"><span>02</span><strong>Akıllı Sulama</strong><p>Yağış, debi ve sistem veriminden çalışma süresi.</p><b>Hesapla →</b></a>
+<a href="bahcem.html"><span>03</span><strong>Bahçem Çalışma Merkezi</strong><p>Uygulama, masraf, hasat ve sezon kayıtları.</p><b>Kaydet →</b></a>
+</div></section>
+
+<section class="calculator-section" id="verim"><header><p class="eyebrow">Yeni araç · 01</p><h2>Temsilî ağaçlarla verim tahmini</h2><p>Bahçenin farklı bölümlerinden seçtiğiniz ağaçların ortalama ürününü kullanarak toplam hasat için ihtiyatlı bir aralık oluşturun.</p></header><form id="yield-form" class="smart-form">
+<label>Bahçe alanı (dekar)<input id="yield-area" type="number" min="0.1" step="0.1" value="5" required></label>
+<label>Toplam ağaç sayısı<input id="yield-trees" type="number" min="1" step="1" value="200" required></label>
+<label>Örneklenen ağaç sayısı<input id="yield-samples" type="number" min="3" step="1" value="10" required></label>
+<label>Örnek ağaçların ortalaması (kg/ağaç)<input id="yield-average" type="number" min="0" step="0.1" value="25" required></label>
+<label>Hasat/ıskarta kaybı (%)<input id="yield-loss" type="number" min="0" max="90" step="1" value="10" required></label>
+<button class="button button-primary" type="submit">Tahmini hesapla</button>
+</form><output id="yield-result" class="smart-output" aria-live="polite"><span>Değerleri girip tahmini hesaplayın.</span></output><p class="tool-caution">Örnek ağaçları yalnız yol kenarından seçmeyin; alt, orta, üst ve farklı sıralara dağıtın. Don, doğal döküm ve hastalık tahmini değiştirebilir.</p></section>
+
+<section class="calculator-section frost-section" id="mikroklima"><header><p class="eyebrow">Yeni araç · 02</p><h2>Don mikroklima karşılaştırması</h2><p>Aynı saatte bahçenin alt, orta ve üst bölümünden aldığınız sıcaklıkları karşılaştırın; en soğuk cebi görün.</p></header><form id="frost-map-form" class="smart-form frost-form">
+<label>Alt bölüm (°C)<input id="frost-low" type="number" step="0.1" value="-2.4" required></label>
+<label>Orta bölüm (°C)<input id="frost-mid" type="number" step="0.1" value="-1.2" required></label>
+<label>Üst bölüm (°C)<input id="frost-high" type="number" step="0.1" value="-0.6" required></label>
+<label>Fenolojik dönem<select id="frost-period"><option>Tomurcuk kabarması</option><option>Beyaz tomurcuk</option><option selected>Tam çiçeklenme</option><option>Meyve tutumu</option></select></label>
+<button class="button button-primary" type="submit">Farkı değerlendir</button>
+</form><output id="frost-map-result" class="smart-output" aria-live="polite"><span>Aynı yükseklikte ve aynı anda alınan ölçümleri girin.</span></output><p class="tool-caution">Bu araç sıcaklık farkını gösterir; hasar oranı hesaplamaz. Sensörleri doğrudan toprak, duvar veya metal yüzeye temas ettirmeyin.</p></section>
+
+<section class="decision-game" id="karar-oyunu"><div class="smart-heading"><div><p class="eyebrow">Yeni araç · 03</p><h2>Bahçede doğru karar oyunu</h2></div><p>Kısa saha durumlarında kararınızı seçin; gerekçeyi hemen görün.</p></div><div class="quiz-card"><div class="quiz-progress"><span id="quiz-count">1 / 5</span><span id="quiz-score">Doğru: 0</span></div><h3 id="quiz-question"></h3><div id="quiz-options" class="quiz-options"></div><div id="quiz-feedback" class="quiz-feedback" aria-live="polite"></div><button id="quiz-next" class="button button-primary" type="button" hidden>Sonraki soru</button></div></section>
+
+<section class="roadmap-section"><div class="smart-heading"><div><p class="eyebrow">Geliştirme yol haritası</p><h2>Bahçenin dijital hafızası büyüyor</h2></div><p>Bu araçlar sırayla ücretsiz ve mobil uyumlu olarak geliştirilecek.</p></div><div class="roadmap-grid">
+<article><span>04 · Sıradaki</span><h3>Sıra ve ağaç haritası</h3><p>Don, zamklanma, yaprak dökümü, tıkanıklık ve düşük verimi ağaç üzerinde işaretleme.</p></article>
+<article><span>05 · Planlandı</span><h3>Fotoğraflı Bahçe Hafızası</h3><p>Aynı ağacın tomurcuk, çiçek, meyve ve hasat sonrası görüntülerini yıllara göre karşılaştırma.</p></article>
+<article><span>06 · Planlandı</span><h3>Analiz Yorumlayıcısı</h3><p>Toprak, yaprak ve sulama suyu sonuçlarını düşük–yeterli–yüksek karar tablosuna dönüştürme.</p></article>
+<article><span>07 · Planlandı</span><h3>Sezonluk Su Takibi</h3><p>Hesaplanan ve uygulanan süreyi, toplam m³ ve enerji maliyetiyle karşılaştırma.</p></article>
+</div></section>
+</main>
+<footer><a class="brand" href="index.html"><span>🍒</span> Vişne Bahçesi</a><p>Toprağa saygı, üreticiye fayda.</p><p>© <span id="year"></span> Vişne Bahçesi</p></footer>
+<script src="script.js"></script><script src="smart-garden.js"></script>
+</body></html>
