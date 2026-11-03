@@ -64,3 +64,45 @@ async function loadYesilkoyWeather(){
  }catch(error){weatherEls.loading.className='weather-error';weatherEls.loading.innerHTML='<strong>Hava durumu şu anda alınamadı.</strong><br>İnternet bağlantınızı kontrol edip yeniden deneyin.';weatherEls.updated.textContent='alınamadı'}finally{clearTimeout(timer);weatherEls.refresh.disabled=false}
 }
 if(weatherEls.refresh){weatherEls.refresh.addEventListener('click',loadYesilkoyWeather);loadYesilkoyWeather()}
+
+
+// Ortak erişilebilirlik ve uzun sayfa yardımcıları
+const mainContent=document.querySelector('main');
+if(mainContent){
+  if(!mainContent.id) mainContent.id='ana-icerik';
+  if(!document.querySelector('.skip-link')){
+    const skipLink=document.createElement('a');
+    skipLink.className='skip-link';
+    skipLink.href='#'+mainContent.id;
+    skipLink.textContent='Ana içeriğe geç';
+    document.body.prepend(skipLink);
+  }
+}
+if(navigation){
+  const currentFile=location.pathname.split('/').pop()||'index.html';
+  navigation.querySelectorAll('a[href]').forEach(link=>{
+    const linkFile=link.getAttribute('href').split('#')[0];
+    if(linkFile&&linkFile===currentFile)link.setAttribute('aria-current','page');
+  });
+}
+if(menuButton&&navigation){
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&navigation.classList.contains('open')){
+      navigation.classList.remove('open');
+      menuButton.setAttribute('aria-expanded','false');
+      menuButton.focus();
+    }
+  });
+}
+if(!document.querySelector('.back-to-top')){
+  const backToTop=document.createElement('button');
+  backToTop.className='back-to-top';
+  backToTop.type='button';
+  backToTop.setAttribute('aria-label','Sayfanın başına dön');
+  backToTop.textContent='↑';
+  document.body.appendChild(backToTop);
+  const updateBackToTop=()=>backToTop.classList.toggle('visible',window.scrollY>700);
+  window.addEventListener('scroll',updateBackToTop,{passive:true});
+  updateBackToTop();
+  backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+}
