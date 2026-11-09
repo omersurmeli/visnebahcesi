@@ -127,11 +127,28 @@ def main():
             rel = local_path(image_url)
             if image_url and (not rel or not (ROOT / rel).is_file()):
                 bad("broken social image: " + image_url)
+        types_found = set()
         for block in p.jsonld:
             try:
-                json.loads(block)
-            except json.JSONDecodeError as error:
+                schema = json.loads(block)
+                nodes = schema.get("@graph", [schema])
+                for node in nodes:
+                    kind = node.get("@type", "")
+                    types_found.add(kind)
+                    if kind == "Article":
+                        for prop in ("headline", "image", "author", "publisher", "mainEntityOfPage"):
+                            if not node.get(prop):
+                                bad("Article schema missing " + prop)
+                        if node.get("publisher", {}).get("@id") != BASE + "#organization":
+                            bad("Article schema publisher is not linked to Organization")
+                    if kind == "Organization" and not node.get("description"):
+                        bad("Organization schema description missing")
+            except (json.JSONDecodeError, AttributeError, TypeError) as error:
                 bad("invalid JSON-LD: " + str(error))
+        if p.meta.get("og:type") == "article" and "Article" not in types_found:
+            bad("article page has no Article schema")
+        if file.name == "index.html" and "Organization" not in types_found:
+            bad("home page missing Organization schema")
     robots = ROOT / "robots.txt"
     if not robots.is_file() or "Sitemap: " + BASE + "sitemap.xml" not in robots.read_text(encoding="utf-8"):
         issues.append("robots.txt sitemap declaration missing")
