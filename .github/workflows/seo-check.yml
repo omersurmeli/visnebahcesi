@@ -1,0 +1,20 @@
+name: SEO doğrulaması
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  seo-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kaynak kodunu al
+        uses: actions/checkout@v4
+      - name: SEO sayfa ve sitemap kontrolü
+        run: python3 scripts/check_seo.py
