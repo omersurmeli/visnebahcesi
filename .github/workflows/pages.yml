@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Kaynak kodunu al
         uses: actions/checkout@v4
+      - name: SEO bütünlük kontrolü
+        run: python3 scripts/check_seo.py
       - name: Alan adı DNS kontrolü
         run: |
           echo "Kök alan adı A kayıtları"
