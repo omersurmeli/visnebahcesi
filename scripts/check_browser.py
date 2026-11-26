@@ -26,6 +26,22 @@ def run(browser, width, height):
         visit(file.name)
         expect(page.locator("h1")).to_have_count(1)
         assert page.evaluate("document.querySelector('script[src=\"script.js\"]') !== null"), file.name
+    visit("index.html")
+    expect(page.locator(".home-quick-links a")).to_have_count(6)
+    expect(page.locator(".guide-grid-four .guide-card-image")).to_have_count(4)
+    assert page.locator(".v28-hero-img").evaluate("(el) => el.complete && el.naturalWidth > 0"), "Hero image missing"
+    for image in page.locator(".guide-grid-four img").all():
+        image.scroll_into_view_if_needed()
+        expect(image).to_be_visible()
+        page.wait_for_function("(el) => el.complete && el.naturalWidth > 0", arg=image.element_handle())
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 2"), "Home horizontal overflow"
+    visit("budama.html")
+    expect(page.locator(".v28-article-figure img")).to_be_visible()
+    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 2"), "Article horizontal overflow"
+    if width < 800:
+        page.locator(".menu-button").click()
+        expect(page.locator("#site-nav a[href='arastirma-merkezi.html']")).to_be_visible()
+        page.locator(".menu-button").click()
     visit("bilimsel-kaynaklar.html")
     expect(page.locator("[data-source]")).to_have_count(83)
     page.locator("#source-search").fill("K-083")
