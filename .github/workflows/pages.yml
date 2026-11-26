@@ -25,6 +25,8 @@ jobs:
         uses: actions/checkout@v4
       - name: SEO bütünlük kontrolü
         run: python3 scripts/check_seo.py
+      - name: Yalnız yayın dosyalarını hazırla
+        run: python3 scripts/build_public.py
       - name: Alan adı DNS kontrolü
         run: |
           echo "Kök alan adı A kayıtları"
@@ -44,7 +46,7 @@ jobs:
       - name: Site dosyalarını paketle
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Yayınla
         id: deployment
         uses: actions/deploy-pages@v4
