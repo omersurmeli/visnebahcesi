@@ -38,7 +38,7 @@ def capture(browser, label, width, height):
         if selector:
             target = page.locator(selector)
             expect(target).to_be_visible()
-            target.evaluate("(el)=>el.scrollIntoView({block:'start',behavior:'instant'})")
+            target.evaluate("(el)=>{const top=el.getBoundingClientRect().top+window.scrollY;const header=document.querySelector('.site-header');window.scrollTo({top:Math.max(0,top-(header?.getBoundingClientRect().height||0)-12),behavior:'instant'});}")
         page.evaluate("document.fonts.ready")
         # Force lazy loading of images in the viewport before capturing.
         page.evaluate("""async () => {const imgs=[...document.images].filter(i=>{const r=i.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;});await Promise.all(imgs.map(i=>{i.loading='eager';return i.decode().catch(()=>{});}));}""")

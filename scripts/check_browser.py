@@ -26,6 +26,18 @@ def run(browser, width, height):
         visit(file.name)
         expect(page.locator("h1")).to_have_count(1)
         assert page.evaluate("document.querySelector('script[src=\"script.js\"]') !== null"), file.name
+        # Light article headers must not retain the legacy dark overlay.
+        cover = page.locator(".v28-article-hero")
+        if cover.count():
+            assert cover.evaluate("""el => {
+                const css = getComputedStyle(el);
+                const overlay = getComputedStyle(el, '::before');
+                const h1 = getComputedStyle(el.querySelector('h1'));
+                return css.backgroundColor === 'rgb(233, 240, 229)' &&
+                    css.backgroundImage === 'none' &&
+                    (overlay.display === 'none' || overlay.content === 'none' || overlay.content === 'normal') &&
+                    h1.color === 'rgb(36, 60, 44)';
+            }"""), f"Article cover contrast regression: {file.name}"
     visit("index.html")
     expect(page.locator(".home-quick-links a")).to_have_count(6)
     expect(page.locator(".v3-daily-grid > section")).to_have_count(2)
@@ -73,6 +85,7 @@ def run(browser, width, height):
     expect(page.locator("#tm-status")).to_contain_text("DEMO")
     expect(page.locator(".tm-card")).to_have_count(13)
     expect(page.locator("#tm-chart svg")).to_have_count(1)
+    assert page.locator(".tm-controls").evaluate("(el)=>el.scrollWidth <= el.clientWidth + 2"), "Telemetry control overflow"
     visit("bahcem.html")
     expect(page.locator("#bc-state")).to_contain_text("kapalı")
     assert page.locator("#bp-view").evaluate("(el)=>!!(el.compareDocumentPosition(document.querySelector(\".v3-integrations\")) & Node.DOCUMENT_POSITION_FOLLOWING)")

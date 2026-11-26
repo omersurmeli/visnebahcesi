@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -53,6 +54,22 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+      - name: Yayın paketinin API üzerinden erişimini doğrula
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in $(seq 1 24); do
+            if gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts" --paginate --jq '.artifacts[] | select(.name == "github-pages" and .expired == false) | .id' | grep -Eq '^[0-9]+        id: deployment
+        uses: actions/deploy-pages@v4
+; then
+              echo "Pages yayın paketi API üzerinden doğrulandı."
+              exit 0
+            fi
+            echo "Paket görünürlüğü bekleniyor: ${attempt}/24"
+            sleep 5
+          done
+          echo "::error::Yayın paketi GitHub API üzerinden doğrulanamadı."
+          exit 1
       - name: Yayınla
         id: deployment
         uses: actions/deploy-pages@v4

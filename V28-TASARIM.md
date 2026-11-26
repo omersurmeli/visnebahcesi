@@ -8,3 +8,7 @@ V2.8 öncül commit'i için CI başarılıydı (45793689230). Bu yeni revizyonda
 
 ## Görsel inceleme kapısı
 8c49f28 için CI 45794723967: SEO, paketleme ve Chromium 1440×900 / 768×1024 / 390×844 başarılı. Önceki çalışma görsel arşiv üretmedi. Yeni kontrol adımı aynı yayın paketinden 21 gerçek Chromium ekran görüntüsü ve 3 temas sayfası üretir; dış ağ ve kişisel kayıtlar kullanılmaz. Bu commit site uygulamasını değiştirmez. Görsel inceleme ayrıca doğrulanır.
+
+
+## V3.0.1 — Görsel ve yayın düzeltmesi
+Ana dal 07de052 için 45797693832 başarılı; 21 gerçek ekran görüntüsü ve 3 temas sayfası üretildi, üç temas sayfası incelendi. Rehber kapaklarında eski koyu pseudo-element ile yeni koyu yazı çakışması görüldü. Açık kapak arka planı ve koyu yazı birlikte sabitlendi; bütün yeni rehber kapaklarında hesaplanmış CSS kontrolü eklendi. Mobil sensör seçimleri tek sütuna alındı. Görsel yakalama kaydırması sabit başlığı hesaba katar. Hava servisi testlerde ağ engeli nedeniyle hata durumu gösterir. Pages 45797694071 teknik testleri ve upload başarılı, deploy artifact metadata aşaması 0 sonuç nedeniyle başarısız; paket 15105298559 sonradan API'de mevcut. Yeni dağıtımda actions:read ve en fazla 120 saniyelik paket görünürlüğü doğrulaması eklendi. Bu değişiklik gerçek dağıtım başarısı garanti etmez; yeni çalıştırma kontrol edilmelidir.
