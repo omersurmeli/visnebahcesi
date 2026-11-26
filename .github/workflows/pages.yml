@@ -19,12 +19,20 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Kaynak kodunu al
         uses: actions/checkout@v4
       - name: SEO bütünlük kontrolü
         run: python3 scripts/check_seo.py
+      - name: Yalnız yayın dosyalarını hazırla
+        run: python3 scripts/build_public.py
+      - name: Chromium test ortamı
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium
+      - name: Yayından önce tarayıcı kontrolü
+        run: python3 scripts/check_browser.py
       - name: Alan adı DNS kontrolü
         run: |
           echo "Kök alan adı A kayıtları"
@@ -44,7 +52,7 @@ jobs:
       - name: Site dosyalarını paketle
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Yayınla
         id: deployment
         uses: actions/deploy-pages@v4

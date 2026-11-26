@@ -12,9 +12,17 @@ permissions:
 
 jobs:
   seo-check:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Kaynak kodunu al
         uses: actions/checkout@v4
       - name: SEO sayfa ve sitemap kontrolü
         run: python3 scripts/check_seo.py
+      - name: Yayın paketini hazırla
+        run: python3 scripts/build_public.py
+      - name: Chromium test ortamı
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium
+      - name: Masaüstü ve mobil tarayıcı kontrolü
+        run: python3 scripts/check_browser.py
