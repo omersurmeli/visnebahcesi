@@ -121,3 +121,10 @@ if(!document.querySelector('.back-to-top')){
     if(['a','c','x','v'].includes(e.key.toLowerCase()))e.preventDefault();
   },true);
 })();
+
+// V3.0: shared footer navigation; no network requests or personal data access.
+(()=>{const footer=document.querySelector("footer");if(!footer||footer.querySelector(".site-footer-v3"))return;
+const groups=[["Yetiştiricilik",[["Vişne yetiştiriciliği","yetistiricilik.html"],["Budama","budama.html"],["Gübreleme","gubreleme.html"],["Bitki sağlığı","hastaliklar.html"],["Sulama","visne-sulama-rehberi.html"]]],["Araştırma ve plan",[["Araştırma merkezi","arastirma-merkezi.html"],["Bilimsel kaynaklar","bilimsel-kaynaklar.html"],["52 haftalık program","haftalik-visne-bakim-programi.html"],["Fenolojik program","fenolojik-visne-bakim-programi.html"],["Ürün değerlendirme","visneden-yapilabilecek-urunler.html"]]],["Üretici araçları",[["Güncel bilgiler","guncel.html"],["Takvim","takvim.html"],["Hesaplayıcılar","araclar.html"],["Akıllı Bahçe","akilli-bahce.html"],["Bahçem","bahcem.html"],["İletişim","iletisim.html"]]]];
+const nav=document.createElement("nav");nav.className="site-footer-v3";nav.setAttribute("aria-label","Alt menü");
+for(const [title,links] of groups){const section=document.createElement("div"),heading=document.createElement("h2");heading.textContent=title;section.append(heading);for(const [label,href] of links){const a=document.createElement("a");a.href=href;a.textContent=label;section.append(a);}nav.append(section);}footer.append(nav);
+})();
