@@ -106,3 +106,17 @@ if(!document.querySelector('.back-to-top')){
   updateBackToTop();
   backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
 }
+
+// Content protection: deterrent only; keep forms, navigation and keyboard access usable.
+(()=>{
+  const editableSelector='input, textarea, select, [contenteditable]:not([contenteditable="false"]), [role="textbox"], [data-copy-allowed]';
+  const editable=node=>!!(node&&(node.nodeType===1?node:node.parentElement)?.closest(editableSelector));
+  const allowed=e=>editable(e.target)||((e.type==='copy'||e.type==='cut'||e.type==='paste'||e.type==='keydown')&&editable(document.activeElement));
+  const stop=e=>{if(!allowed(e))e.preventDefault()};
+  for(const type of ['copy','cut','paste','selectstart','contextmenu'])document.addEventListener(type,stop,true);
+  document.addEventListener('dragstart',e=>{if(!allowed(e))e.preventDefault()},true);
+  document.addEventListener('keydown',e=>{
+    if(allowed(e)||!(e.ctrlKey||e.metaKey)||e.altKey)return;
+    if(['a','c','x','v'].includes(e.key.toLowerCase()))e.preventDefault();
+  },true);
+})();
