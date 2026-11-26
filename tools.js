@@ -118,7 +118,7 @@ if(irrigationForm&&irrigationLogButton&&irrigationResultActions){
   irrigationLogButton.addEventListener('click',()=>{
     if(!latestIrrigationLog)return;
     let records=[];
-    try{records=JSON.parse(localStorage.getItem('visne-logs-v1')||'[]');if(!Array.isArray(records))records=[]}catch(error){records=[]}
+    try{records=JSON.parse(localStorage.getItem('visne-logs-v1')||'[]');if(!Array.isArray(records)||records.some(r=>!r||typeof r!=='object'))throw Error('format')}catch(error){document.getElementById('irrigation-save-status').textContent='Eski defter okunamadı; mevcut veriler değiştirilmedi.';return;}
     records.unshift({...latestIrrigationLog,id:Date.now()});
     localStorage.setItem('visne-logs-v1',JSON.stringify(records));
     irrigationLogButton.disabled=true;

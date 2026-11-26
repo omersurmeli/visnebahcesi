@@ -22,12 +22,15 @@ class Page(HTMLParser):
         self.meta = {}
         self.canonical = ""
         self.refs = []
+        self.ids = []
         self.jsonld = []
         self.in_jsonld = False
         self.parts = []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
+        if a.get("id"):
+            self.ids.append(a["id"])
         if tag == "html":
             self.lang = a.get("lang", "")
         if tag == "title":
@@ -93,13 +96,21 @@ def main():
             issues.append("Invalid sitemap URL: " + u)
 
     pages = sorted(ROOT.glob("*.html"))
+    parsed = {}
     for file in pages:
         p = Page()
         p.feed(file.read_text(encoding="utf-8"))
         p.close()
+        parsed[file.name] = p
+    for file in pages:
+        p = parsed[file.name]
         expected = BASE if file.name == "index.html" else BASE + file.name
         def bad(detail):
             issues.append(file.name + ": " + detail)
+        if len(p.ids) != len(set(p.ids)):
+            bad("duplicate HTML ids")
+        if not any(tag == "script" and local_path(url) == "script.js" for tag, url in p.refs):
+            bad("missing shared menu and content protection script")
         if not p.lang.lower().startswith("tr"):
             bad("missing Turkish html language")
         if not p.title.strip() or p.h1s != 1:
@@ -122,6 +133,11 @@ def main():
             rel = local_path(url)
             if rel and not (ROOT / rel).is_file():
                 bad("broken local " + tag + " reference: " + url)
+            parsed_url = urlparse(url)
+            if tag == "a" and parsed_url.fragment and not (parsed_url.scheme or parsed_url.netloc):
+                target = rel or file.name
+                if target in parsed and unquote(parsed_url.fragment) not in parsed[target].ids:
+                    bad("broken local anchor: " + url)
         for field in ("og:image", "twitter:image"):
             image_url = p.meta.get(field, "")
             rel = local_path(image_url)
