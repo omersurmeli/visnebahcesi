@@ -63,5 +63,11 @@ function reports(){const t=totals(state,year());root.append(el("h3","Sezon rapor
 const views={trees,tasks,stock,ledger,photos,reports};
 function render(){renderMetrics();root.replaceChildren();document.querySelectorAll("[data-bp-tab]").forEach(b=>{b.setAttribute("aria-pressed",String(b.dataset.bpTab===tab));});if(blocked&&tab!=="reports"){root.append(el("p","Veri okunamadı. Raporlar ve yedek bölümünde geçerli yedek yükleyin."));return;}views[tab]();}
 document.querySelectorAll("[data-bp-tab]").forEach(b=>b.addEventListener("click",()=>{tab=b.dataset.bpTab;editId=null;render();}));
+// Explicit cloud backup bridge: no automatic upload, no tokens or credentials in the panel.
+Object.defineProperty(window,"VisnePanelBackup",{configurable:false,writable:false,value:Object.freeze({
+ snapshot(){if(blocked||localStorage.getItem(KEY)!==raw)throw Error("Yerel kaydı doğrulamak için sayfayı yenileyin.");return structuredClone(state);},
+ validate(next){return validate(next);},
+ restore(next,expected){if(blocked||localStorage.getItem(KEY)!==raw||JSON.stringify(state)!==expected)throw Error("Yerel veri değişti; işlemi yeniden başlatın.");save(structuredClone(next));editId=null;render();}
+})});
 yearEl.addEventListener("change",()=>{editId=null;render();});window.addEventListener("storage",e=>{if(e.key===KEY||e.key==="visne-profile-v1"){load();editId=null;render();say("Kayıt başka sekmede değişti; görünüm güncellendi.");}});render();
 })();
