@@ -6,3 +6,7 @@
 
 ## V2.6 yayın adayı – ek kontroller
 Ana dalın bağımsız kopyalama koruması commit'i karşılaştırıldı: yalnız script.js ve style.css ekleri bulunuyor ve her iki ek de geliştirme dalında birebir korunuyor. Ana dal ebeveyn olarak birleştirme commit'ine dahil edildi. Yayın paketi yalnızca kök HTML/CSS/JS, sitemap, robots, CNAME ve izinli görselleri içerir; SQL, Edge Function, proje notları ve test dosyaları dağıtılmaz. PR iş akışına Chromium masaüstü ve mobil testleri eklendi. Testler dış ağ ve gerçek kullanıcı hesabı kullanmaz. Bu testler ancak GitHub Actions çalıştırması başarıyla tamamlanırsa geçmiş sayılır; canlı siteye yayın yapılmadı.
+
+
+## V2.7 test ortamı düzeltmesi
+İlk GitHub Actions çalıştırmasında SEO PASS: 24 sayfa ve 24 sitemap URL; yayın paketi 24 HTML. Chromium kurulumu Ubuntu 26.04 ile Playwright 1.56 uyumsuzluğu nedeniyle durdu. Test ve dağıtım ortamı Ubuntu 24.04 olarak sabitlendi; canlı dağıtımın önüne de aynı tarayıcı testi eklendi. Yeni çalıştırma başarılı olmadan birleştirme yapılmaz.
