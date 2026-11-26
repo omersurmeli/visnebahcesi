@@ -28,6 +28,11 @@ def run(browser, width, height):
         assert page.evaluate("document.querySelector('script[src=\"script.js\"]') !== null"), file.name
     visit("index.html")
     expect(page.locator(".home-quick-links a")).to_have_count(6)
+    expect(page.locator(".v3-daily-grid > section")).to_have_count(2)
+    expect(page.locator(".site-footer-v3 a")).to_have_count(16)
+    smart_image = page.locator(".v3-smart-visual img")
+    smart_image.scroll_into_view_if_needed()
+    page.wait_for_function("(el) => el.complete && el.naturalWidth > 0", arg=smart_image.element_handle())
     expect(page.locator(".guide-grid-four .guide-card-image")).to_have_count(4)
     assert page.locator(".v28-hero-img").evaluate("(el) => el.complete && el.naturalWidth > 0"), "Hero image missing"
     for image in page.locator(".guide-grid-four img").all():
@@ -70,6 +75,11 @@ def run(browser, width, height):
     expect(page.locator("#tm-chart svg")).to_have_count(1)
     visit("bahcem.html")
     expect(page.locator("#bc-state")).to_contain_text("kapalı")
+    assert page.locator("#bp-view").evaluate("(el)=>!!(el.compareDocumentPosition(document.querySelector(\".v3-integrations\")) & Node.DOCUMENT_POSITION_FOLLOWING)")
+    expect(page.locator(".v3-integrations")).not_to_have_attribute("open", "")
+    page.locator(".v3-integrations summary").click()
+    expect(page.locator("#bc-state")).to_be_visible()
+    page.locator(".v3-integrations summary").click()
     expect(page.locator("#bs-state")).to_contain_text("kapalı")
     expect(page.locator("#tm-refresh")).to_be_disabled()
     expect(page.locator("#bp-view form")).to_have_count(1)
@@ -118,7 +128,7 @@ def run(browser, width, height):
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        for dims in ((1440,900),(390,844)):
+        for dims in ((1440,900),(768,1024),(390,844)):
             run(browser,*dims)
         browser.close()
 finally:
