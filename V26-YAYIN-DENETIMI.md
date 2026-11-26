@@ -10,3 +10,7 @@ Ana dalın bağımsız kopyalama koruması commit'i karşılaştırıldı: yaln�
 
 ## V2.7 test ortamı düzeltmesi
 İlk GitHub Actions çalıştırmasında SEO PASS: 24 sayfa ve 24 sitemap URL; yayın paketi 24 HTML. Chromium kurulumu Ubuntu 26.04 ile Playwright 1.56 uyumsuzluğu nedeniyle durdu. Test ve dağıtım ortamı Ubuntu 24.04 olarak sabitlendi; canlı dağıtımın önüne de aynı tarayıcı testi eklendi. Yeni çalıştırma başarılı olmadan birleştirme yapılmaz.
+
+
+## V2.7 bilimsel son kontrol — 26.11.2026
+Önceki 9e2695d commit'i için GitHub Actions 45788462655 başarılı: 24 sayfa/sitemap, paketleme ve Chromium 1440×900 ile 390×844 smoke testleri. Bu sonuç önceki commit'e aittir. MSU Extension orijinal tablosu (görsel ve metin) ve CSU 2004 PDF metni karşılaştırıldı: tam çiçekte %90 ölüm için 24 °F (−4,4 °C) ve 25 °F (−3,9 °C) kaynak farkı mevcut; çiçek sonrası yalnız CSU'da. Budama tablosu kaynak ayrımıyla düzeltildi. TAGEM 2022 teknik talimat metninden monilya, yaprak lekesi, bakteriyel kanser, kiraz sineği, akar ve siyah yaprakbiti referansları kontrol edildi. Kiraz tuzak yoğunluğunun vişneye doğrudan aktarılmadığı belirtildi. Kaynak PDF görsellerinin CSU/TAGEM için erişimi başarısız; metin kontrolü yapıldı. Kaynak defteri 83 kayıt olarak korundu, K-050 içinde MSU çapraz bağlantısı eklendi. Bu inceleme tüm 83 kaynağın, tüm tarımsal eşiklerin veya güncel ruhsatların doğrulandığı anlamına gelmez. Supabase/OAuth/ESP32 bağlantıları kapalı; yeniden CI sonucu doğrulanmadan yayın yok.
