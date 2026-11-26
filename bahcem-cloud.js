@@ -14,8 +14,8 @@ function diffText(d){return d.map(x=>x.name+": yerelde "+x.localOnly+", bulutta 
 
 let session=null,busy=false,expiryTimer=null,knownRevision=undefined,reviewedLocal=null;
 const say=s=>{status.textContent=s;};
-function reset(){clearTimeout(expiryTimer);session=null;knownRevision=undefined;reviewedLocal=null;$("bc-diff").textContent="";account.textContent="";revision.textContent="";login.reset();login.hidden=false;actions.hidden=true;fields.disabled=busy;}
-function show(){login.hidden=true;actions.hidden=false;account.textContent="Oturum: "+session.email;revision.textContent="Bulut sürümü henüz kontrol edilmedi.";}
+function reset(){window.VisneTelemetry?.clear();clearTimeout(expiryTimer);session=null;knownRevision=undefined;reviewedLocal=null;$("bc-diff").textContent="";account.textContent="";revision.textContent="";login.reset();login.hidden=false;actions.hidden=true;fields.disabled=busy;}
+function show(){window.VisneTelemetry?.connect(async()=>{const s=requireSession();const [stations,readings]=await Promise.all([request("/rest/v1/sensor_stations?select=id,label,zone,active&order=label.asc&limit=100",{token:s.token}),request("/rest/v1/sensor_readings?select=station_id,observed_at,received_at,metrics&order=observed_at.desc&limit=500",{token:s.token})]);if(session!==s)throw Error("Oturum değişti.");return {stations,readings};});login.hidden=true;actions.hidden=false;account.textContent="Oturum: "+session.email;revision.textContent="Bulut sürümü henüz kontrol edilmedi.";}
 function setBusy(v){busy=v;fields.disabled=v;actions.querySelectorAll("button").forEach(b=>b.disabled=v);}
 function requireSession(){if(!session||Date.now()>=session.expiry){reset();throw Error("Oturum sona erdi. Yeniden giriş yapın.");}return session;}
 async function request(path,{method="GET",body,token,prefer}={}){const headers={apikey:cfg.publishableKey,Accept:"application/json"};if(token)headers.Authorization="Bearer "+token;if(body!==undefined)headers["Content-Type"]="application/json";if(prefer)headers.Prefer=prefer;

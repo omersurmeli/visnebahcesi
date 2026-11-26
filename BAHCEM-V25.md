@@ -1,0 +1,19 @@
+# V2.5 — Sensör izleme (pilot, sadece okuma)
+Akıllı Bahçe sayfası yalnızca açıkça etiketli demo sunar. Bahçem sensör paneli V2.3 oturumu ile kendi istasyonlarını ve en fazla 500 son ölçümü okur; otomatik yenileme, arka plan bildirimi ve vana/pompa komutu yoktur. Sensör verileri yerel finans yedeğine veya Google raporuna eklenmez. +2/0 °C yalnız örnek erken uyarı; ölçüm 30 dakikadan eskiyse değerlendirme yok. VWC probu sahada kalibre edilmeli. EC, pH, basınç, debi ve diğer sensörlerin birimleri değişmez. Su sayaç artışı yalnız gösterilen örnekler arasıdır; sayaç sıfırlanırsa hesaplanmaz.
+
+## Kurulum (ayrı test projesi, gerçek veriden önce)
+1. V2.3 kimlik doğrulama/RLS testlerini tamamlayın. Yeni migration dosyasını SQL Editor'da inceleyip test projesine uygulayın. RLS ile yalnız kullanıcıya ait istasyon/ölçüm okunur; tarayıcı INSERT/UPDATE/DELETE yapamaz.
+2. Yönetici SQL Editor üzerinden test kullanıcısına ait station satırı oluşturur. Güvenli rastgele üretilmiş 32 baytlık token (64 küçük harfli hex) kullanın; örnek token kullanmayın. Token cihazda güvenli tutulur, yalnız SHA-256 özeti veritabanına yazılır: pg_catalog.sha256(pg_catalog.convert_to('TOKEN','UTF8')). Tokeni GitHub/sohbet/SQL geçmişine yazmamak için parametreli yönetim aracı kullanın; istasyon yönetim arayüzü bu sürümde yok. Token yenileme ve istasyon pasifleştirme yönetici işlemi.
+3. Edge Function `sensor-ingest` dağıtımı: supabase functions deploy sensor-ingest --no-verify-jwt (yalnız bu fonksiyon). İstekler x-device-token ile doğrulanır; service role sunucuda kalır. Proje anahtarları ve cihaz tokeni public repo'ya yazılmaz. Üretimden önce ağ seviyesinde rate-limit, log redaksiyonu, erişim denetimi ve secret rotasyonu sağlanmalıdır. SQL en fazla her istasyonda 30 saniyede bir yeni örnek kabul eder; önerilen ilk ölçüm sıklığı 5–15 dk. Başarısız token denemelerine altyapı düzeyinde sınırlandırma gerekir. Saklama/temizlik politikası ve kullanım bütçesi yönetici tarafından belirlenmeli; otomatik veri silme yok.
+4. ESP32 veya ağ geçidi HTTPS POST: /functions/v1/sensor-ingest, Content-Type application/json ve x-device-token. Sertifika doğrulaması zorunlu, setInsecure kullanılmaz. NTP ile UTC saat; örnek başına yeni UUID, aynı örneğin tekrar gönderiminde aynı UUID/zaman/metrik. Başarı 201 veya tekrar 200; 429/503 üstel geri bekleme; 400/401/409 operatör kontrolü. 7 günden eski örnek kabul edilmez. Offline tampon, güç ve LoRa protokolü ayrıca gerçek donanıma göre geliştirilir.
+5. Örnek JSON (temsili, gerçek ölçüm değildir):
+```json
+{"station_id":"00000000-0000-4000-8000-000000000001","sample_id":"00000000-0000-4000-8000-000000000002","observed_at":"2026-11-26T08:00:00Z","metrics":{"air_c":1.8,"rh_pct":83,"vwc_shallow":27.1,"vwc_deep":31.5,"battery_v":12.6}}
+```
+Zaman gerçek UTC olmalı; örnek UUID'ler ve tarih aynen kullanılmaz. Kalibrasyonu olmayan ölçüm alanı gönderilmez. ESP32 firmware bu aşamada yazılmadı; protokol sözleşmesi hazırdır. LoRa saha düğümü -> yetkili internet ağ geçidi adaydır; frekans ve güç BTK şartlarıyla doğrulanır.
+## Kabul testleri (canlı yapılmadı)
+- Anonim erişim yok; A ve B hesapları birbirlerinin istasyonlarını göremez. Tarayıcı anahtarı ile ingest RPC doğrudan çağrılamaz.
+- Yanlış token/istasyon, devre dışı istasyon, yanlış birim/aralık, eski/gelecek zaman ve büyük JSON reddedilir. Aynı örnek tekrarı 200, farklı içerikle aynı örnek 409; 30 saniyeden hızlı yeni örnek 429.
+- Bağlantı kaybı, oturum sonu, iki istasyon, eksik sıcaklık, eski değer, su sayaç reseti, CSV formül benzeri metin kontrolü.
+- Elektrik ve pompa emniyetleri bağımsızdır. Bu panel ile otomatik sulama veya aktif don koruma yapılmaz.
+Kaynaklar: https://supabase.com/docs/guides/database/postgres/row-level-security ; https://docs.espressif.com/projects/esp-idf/en/v6.0/esp32/api-reference/protocols/esp_http_client.html
